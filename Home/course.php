@@ -1,41 +1,6 @@
 <!--Header -->
 <?php include "./include/header.php" ?>
 <?php include "./include/pageTitle.php" ?>
-    <!--  ************************* Page Title Starts Here ************************** -->
-    <!-- Main Container-->
-    <div class="container py-5 my-2 mb-5">
-      <div class="row">
-        <div class="col-12 col-xl-6 pb-4">
-          <div class="card shadow-md" style="width: 23rem">
-            <div class="card-body">
-              <img
-                class="icon-search"
-                src="assets/images/pertakina_berdaya.png"
-                alt="" />
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Search"
-                aria-label="Search" />
-=======
-<!-- And Header -->
-
-<!--  ************************* Page Title Starts Here ************************** -->
-<div class="page-nav no-margin row">
-  <div class="container">
-    <div class="row">
-      <h2 class="text-start">E-Learning Language</h2>
-      <ul>
-        <li>
-          <a href="index.html"><i class="bi bi-house-door"></i> Beranda</a>
-        </li>
-        <li>
-          <i class="bi bi-chevron-double-right pe-2"></i> Learning Path
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
 
 <!-- Main Container-->
 <div class="container py-5 my-2 mb-5">
