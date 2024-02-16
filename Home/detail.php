@@ -23,7 +23,7 @@ if (isset($id_vidio)) {
       $id_vidio = $row['id_vidio'];
       $kategori_video = $row['kategori_video'];
       $judul_video = $row['judul_vidio'];
-      $sinopsis_video = $row['sinopsis_vidio'];
+      $sinopsis_vidio = $row['sinopsis_vidio'];
       $deskripsi_vidio = $row['deskripsi_vidio'];
     }
   }
@@ -47,8 +47,8 @@ if (isset($id_vidio)) {
         <div style="background-color: grey" class="py-1 my-3">
           <p style="color: #fff" class="fs-5 text-center"><?php echo $deskripsi_vidio; ?></p>
         </div>
-        <p class="deskripsi-vidio">
-          <?php echo $deskripsi_vidio; ?>
+        <p class="sinopsis-vidio">
+          <?php echo $sinopsis_vidio; ?>
         </p>
       </div>
     </div>
