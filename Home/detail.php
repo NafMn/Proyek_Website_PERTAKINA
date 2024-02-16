@@ -45,10 +45,10 @@ if (isset($id_vidio)) {
         <p class="category fw-bold"><?php echo $kategori_video; ?></p>
         <h4><?php echo $judul_video; ?></h4>
         <div style="background-color: grey" class="py-1 my-3">
-          <p style="color: #fff" class="fs-5 text-center"><?php echo $deskripsi_vidio; ?></p>
+          <p style="color: #fff" class="fs-5 text-center"><?php echo $sinopsis_vidio; ?></p>
         </div>
-        <p class="sinopsis-vidio">
-          <?php echo $sinopsis_vidio; ?>
+        <p class="deskripsi-vidio">
+          <?php echo $deskripsi_vidio; ?>
         </p>
       </div>
     </div>
