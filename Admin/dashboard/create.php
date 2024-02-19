@@ -1,5 +1,5 @@
-<?php require "include/head.php"; ?>
-<?php require "include/nav.php"; ?>
+<?php require "../include/head.php"; ?>
+<?php require "../include/nav.php"; ?>
 
 <!-- Begin Page Content -->
 <?php
@@ -111,11 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="col-12 p-0 m-0">
         <div class="mb-3">
           <label for="sinopsis_video" class="form-label">SINOPSIS VIDEO</label>
-          <textarea class="form-control" id="sinopsis_video" name="sinopsis_video"><?php echo isset($sinopsis_video) ? $sinopsis_video : ''; ?></textarea>
+          <textarea class="form-control" id="sinopsis_video" name="sinopsis_video" maxlength="100"><?php echo isset($sinopsis_video) ? $sinopsis_video : ''; ?></textarea>
         </div>
         <div class="mb-3">
           <label for="deskripsi_video" class="form-label">DESKRIPSI VIDEO</label>
-          <textarea class="form-control" id="deskripsi_video" name="deskripsi_video"><?php echo isset($deskripsi_video) ? $deskripsi_video : ''; ?></textarea>
+          <textarea class="form-control" id="deskripsi_video" name="deskripsi_video" maxlength="100"><?php echo isset($deskripsi_video) ? $deskripsi_video : ''; ?></textarea>
         </div>
       </div>
       <div class="row">
@@ -179,16 +179,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 </div>
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-<script src="js/demo/datatables-demo.js"></script>
-</body>
-
-</html>
+<?php include './include/footer.php' ?>

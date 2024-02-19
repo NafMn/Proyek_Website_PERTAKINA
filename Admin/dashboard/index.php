@@ -1,5 +1,5 @@
-<?php require "include/head.php"; ?>
-<?php require "include/nav.php"; ?>
+<?php require "../include/head.php"; ?>
+<?php require "../include/nav.php"; ?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -49,8 +49,8 @@
                 Kategori Bahasa
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-              <?php
-    $sql_count = "SELECT 
+                <?php
+                $sql_count = "SELECT 
                         COUNT(*) AS total_kategori,
                         kategori_video
                     FROM 
@@ -59,16 +59,16 @@
                         kategori_video IN ('bahasa inggris', 'bahasa jepang', 'bahasa korea')
                     GROUP BY 
                         kategori_video;";
-    $result_count = $connect->query($sql_count);
+                $result_count = $connect->query($sql_count);
 
-    $total_kategori = 0;
+                $total_kategori = 0;
 
-    while($row_count = $result_count->fetch_assoc()) {
-        $total_kategori += $row_count['total_kategori'];
-    }
+                while ($row_count = $result_count->fetch_assoc()) {
+                  $total_kategori += $row_count['total_kategori'];
+                }
 
-    echo $total_kategori;
-?>
+                echo $total_kategori;
+                ?>
 
               </div>
             </div>
@@ -94,6 +94,9 @@
         </a>
       </div>
     </div>
+    <?php
+    $value_per_page = 0;
+    ?>
     <div class="card-body">
       <div class="table-responsive">
         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -102,17 +105,27 @@
               <div class="dataTables_length" id="dataTable_length">
                 <label>Show
                   <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+                    <option value="10" <?php echo ($value_per_page == 10) ? 'selected' : ''; ?>>10</option>
+                    <option value="25" <?php echo ($value_per_page == 25) ? 'selected' : ''; ?>>25</option>
+                    <option value="50" <?php echo ($value_per_page == 50) ? 'selected' : ''; ?>>50</option>
+                    <option value="100" <?php echo ($value_per_page == 100) ? 'selected' : ''; ?>>100</option>
                   </select>
-                  entries</label>
+                  entries
+                </label>
               </div>
             </div>
             <div class="col-sm-12 col-md-6">
               <div id="dataTable_filter" class="dataTables_filter">
-                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" /></label>
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Cari Course..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                      <button class="btn btn-danger" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -122,7 +135,7 @@
                 <thead>
                   <tr role="row">
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 15px" aria-sort="ascending" aria-label="Name: activate to sort column descending">
-                      ID
+                      No
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 61px" aria-label="Position: activate to sort column ascending">
                       URL Vidio
@@ -162,14 +175,15 @@
                 <tbody>
                   <?php
                   // Query untuk mengambil data dari database
-                  $sql = "SELECT * FROM vidio";
+                  $sql = "SELECT * FROM vidio ORDER BY id_vidio DESC";
                   $result = $connect->query($sql);
                   // Periksa apakah ada hasil yang ditemukan
+                  $number = 1;
                   if ($result->num_rows > 0) {
                     // Output data dari setiap baris
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td>" . $row['id_vidio'] . "</td>";
+                      echo "<td>" . $number . "</td>";
                       echo "<td>" . $row['url_vidio'] . "</td>";
                       echo "<td>" . $row['judul_vidio'] . "</td>";
                       echo "<td>" . $row['kategori_video'] . "</td>";
@@ -184,12 +198,13 @@
                                     <a href='edit.php?id=" . $row['id_vidio'] . "' class='btn btn-warning btn-circle mx-2'>
                                         <i class='far fa-edit'></i>
                                     </a>
-                                    <a href='delete.php?id=" . $row['id_vidio'] . "' class='btn btn-danger btn-circle'>
+                                    <a href='delete.php?id=" . $row['id_vidio'] . "' class='btn btn-danger btn-circle' onclick='return konfirmasiHapus();'>
                                         <i class='fas fa-trash'></i>
                                     </a>
                                 </div>    
                             </td>";
                       echo "</tr>";
+                      $number++;
                     }
                   } else {
                     echo "<tr><td colspan='8'>Tidak ada data yang tersedia</td></tr>";
@@ -199,43 +214,20 @@
               </table>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-12 col-md-5">
-              <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-                Showing 1 to 10 of 57 entries
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-7">
-              <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                <ul class="pagination">
-                  <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                  </li>
-                  <li class="paginate_button page-item active">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                  </li>
-                  <li class="paginate_button page-item next" id="dataTable_next">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <script>
+            function konfirmasiHapus() {
+              var konfirmasi = confirm("Apakah Anda yakin ingin menghapus?");
+
+              if (konfirmasi) {
+                alert("Data telah dihapus!");
+                return true;
+              } else {
+                alert("Penghapusan dibatalkan.");
+                return false;
+                window.history.back();
+              }
+            }
+          </script>
         </div>
       </div>
     </div>
@@ -244,5 +236,5 @@
 <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
-
-<?php require "include/footer.php" ?>
+<?php include "../include/footer.php"; ?>
+<!-- Footer -->
