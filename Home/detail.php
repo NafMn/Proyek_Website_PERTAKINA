@@ -4,34 +4,62 @@
 <?php include "./include/pageTitle.php" ?>
 
 <!-- Main Container-->
-<div class="container py-5 my-3 px-4">
-  <div class="card-vidio shadow-md">
-    <div class="card-body mx-2">
-      <iframe class="vidio-course mb-4" width="530" height="315" src="https://www.youtube.com/embed/icK6kVTegDA?si=hoU6NDg2EKvLV_Bi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <p class="category fw-bold">Bahasa Jepang</p>
-      <h4>Huruf Kanji Jepang</h4>
-      <div style="background-color: grey" class="py-1 my-3">
-        <p style="color: #fff" class="fs-5 text-center">Deskripsi</p>
+<?php
+// Start session
+session_start();
+$id_vidio = $_GET['id'];
+// Cek apakah ID video sudah ada di session
+if (isset($id_vidio)) {
+  // Ambil ID video dari session
+  // $video_id = $_SESSION['vidio'];
+
+  // Lakukan query untuk mendapatkan detail video dari database berdasarkan ID
+  // Misalnya:
+  $sql_video = "SELECT * FROM vidio WHERE id_vidio = $id_vidio";
+  $result_video = $connect->query($sql_video);
+  if ($result_video->num_rows > 0) {
+    while ($row = $result_video->fetch_assoc()) {
+      $url_video = $row['url_vidio'];
+      $id_vidio = $row['id_vidio'];
+      $kategori_video = $row['kategori_video'];
+      $judul_video = $row['judul_vidio'];
+      $sinopsis_vidio = $row['sinopsis_vidio'];
+      $deskripsi_vidio = $row['deskripsi_vidio'];
+    }
+  }
+
+  // Jika query berhasil dan mendapatkan data video
+  // Anda dapat menampilkan informasi video seperti judul, deskripsi, dll.
+  // Misalnya:
+  // $judul_video = $row['judul'];
+  // $deskripsi_video = $row['deskripsi'];
+?>
+  <!-- Tampilkan informasi detail video -->
+  <div class="container py-5 my-3 px-4">
+    <div class="card-vidio shadow-md">
+      <div class="card-body mx-2">
+        <!-- Embed video -->
+        <iframe class="vidio-course mb-4" width="530" height="315" src="https://www.youtube.com/embed/<?php echo $id_vidio; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <!-- Informasi video -->
+        <!-- Contoh: -->
+        <p class="category fw-bold"><?php echo $kategori_video; ?></p>
+        <h4><?php echo $judul_video; ?></h4>
+        <div style="background-color: grey" class="py-1 my-3">
+          <p style="color: #fff" class="fs-5 text-center"><?php echo $sinopsis_vidio; ?></p>
+        </div>
+        <p class="deskripsi-vidio">
+          <?php echo $deskripsi_vidio; ?>
+        </p>
       </div>
-      <p class="deskripsi-vidio">
-        Kanji (dengarkanⓘ) (漢字), secara harfiah berarti "aksara dari Han",
-        adalah aksara Tionghoa yang digunakan dalam bahasa Jepang. Kanji
-        adalah salah satu dari empat set aksara yang digunakan dalam tulisan
-        modern Jepang selain kana (katakana, hiragana) dan romaji. Kanji
-        dulunya juga disebut mana (真名) atau shinji (真字) untuk
-        membedakannya dari kana. Aksara kanji dipakai untuk melambangkan
-        konsep atau ide (kata benda, akar kata kerja, akar kata sifat, dan
-        kata keterangan). Sementara itu, hiragana umumnya dipakai sebagai
-        okurigana untuk menuliskan infleksi kata kerja dan kata-kata yang
-        akar katanya ditulis dengan kanji, atau kata-kata asli bahasa
-        Jepang. Selain itu, hiragana dipakai menulis kata-kata yang sulit
-        ditulis dan diingat bila ditulis dalam aksara kanji. Kecuali kata
-        serapan, aksara kanji dipakai untuk menulis hampir semua kosakata
-        yang berasal dari bahasa Tionghoa maupun bahasa Jepang.
-      </p>
     </div>
   </div>
-</div>
+<?php
+} else {
+  // Jika ID video tidak ditemukan dalam session
+  echo "ID video tidak ditemukan";
+}
+?>
+
 <!-- End Main container -->
 
 <!-- ################# Footer Starts Here #######################-->
