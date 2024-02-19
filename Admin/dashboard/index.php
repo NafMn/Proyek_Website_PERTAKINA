@@ -49,26 +49,21 @@
                 Kategori Bahasa
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-                <?php
-                $sql_count = "SELECT 
-                        COUNT(*) AS total_kategori,
-                        kategori_video
-                    FROM 
-                        vidio
-                    WHERE 
-                        kategori_video IN ('bahasa inggris', 'bahasa jepang', 'bahasa korea')
-                    GROUP BY 
-                        kategori_video;";
-                $result_count = $connect->query($sql_count);
+              <?php
+    $sql_count = "SELECT 
+                    COUNT(DISTINCT kategori_video) AS total_kategori
+                  FROM 
+                    vidio
+                  WHERE 
+                    kategori_video IN ('bahasa inggris', 'bahasa jepang', 'bahasa korea');";
+    $result_count = $connect->query($sql_count);
 
-                $total_kategori = 0;
+    $row_count = $result_count->fetch_assoc();
+    $total_kategori = $row_count['total_kategori'];
 
-                while ($row_count = $result_count->fetch_assoc()) {
-                  $total_kategori += $row_count['total_kategori'];
-                }
+    echo $total_kategori;
+?>
 
-                echo $total_kategori;
-                ?>
 
               </div>
             </div>
@@ -114,13 +109,14 @@
                 </label>
               </div>
             </div>
+
             <div class="col-sm-12 col-md-6">
               <div id="dataTable_filter" class="dataTables_filter">
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Cari Course..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
-                      <button class="btn btn-danger" type="button">
+                      <button class="btn btn-danger" type="button" name="search-data.php">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>

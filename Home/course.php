@@ -40,9 +40,12 @@
           $sinopsis_video = $row['sinopsis_vidio'];
           $img_thumbnail = base64_encode($row['img_thumbnail']); // Encode gambar dalam base64
           $_SESSION["vidio_id"] = $id_vidio;
+          $nama_gbr = $row['judul_vidio'];
 
           // Ubah data gambar dari BLOB ke format gambar
-          $img_src = "data:image/jpeg;base64," . $img_thumbnail; // Format sumber gambar untuk ditampilkan di HTML
+          $img_src = "../uploads/" . $row['img_thumbnail']; // Nama file unik dengan ID video
+          // file_put_contents($img_src, $img_thumbnail);
+          echo $img_src;
 
           // Tampilkan data di dalam loop
       ?>
