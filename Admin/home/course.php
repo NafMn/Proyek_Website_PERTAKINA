@@ -38,22 +38,26 @@
           $kategori_video = $row['kategori_video'];
           $judul_video = $row['judul_vidio'];
           $sinopsis_video = $row['sinopsis_vidio'];
-          $img_thumbnail = base64_encode($row['img_thumbnail']); // Encode gambar dalam base64
           $_SESSION["vidio_id"] = $id_vidio;
-          $nama_gbr = $row['judul_vidio'];
 
-          // Ubah data gambar dari BLOB ke format gambar
-          $img_src = "../uploads/" . $row['img_thumbnail']; // Nama file unik dengan ID video
-          // file_put_contents($img_src, $img_thumbnail);
-          echo $img_src;
+          $sql = "SELECT img_thumbnail FROM vidio WHERE id_vidio = $id_vidio"; // Ganti '$id_video' dengan ID video yang sesuai
+          $result = $connect->query($sql);
+          if ($result->num_rows > 0) {
+            // Output data dari setiap baris
+            while ($row = $result->fetch_assoc()) {
+              $thumbnail_path = "./uploads/" . $row["img_thumbnail"];
 
-          // Tampilkan data di dalam loop
+              // Tampilkan data di dalam loop
+            }
+          } else {
+            echo "Tidak ada gambar yang ditemukan.";
+          }
       ?>
           <div class="col-6">
             <div class="card shadow-md">
               <div class="row">
                 <div class="col-md-5">
-                  <img class="card-img" src="<?php echo $img_src; ?>" alt="Card image" />
+                  <img class="card-img img-thumbnail" src="<?php echo $thumbnail_path; ?>" max-width="150px" min-height="100px" alt="Card image" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">

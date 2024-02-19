@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
         // Mengatur direktori untuk menyimpan gambar
-        $target_dir = "../Home/uploads/";
+        $target_dir = "../home/uploads/";
         $target_file = $target_dir . basename($_FILES["img_thumbnail"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
