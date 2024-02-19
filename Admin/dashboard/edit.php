@@ -1,5 +1,5 @@
-<?php require "include/head.php"; ?>
-<?php require "include/nav.php"; ?>
+<?php require "../include/head.php"; ?>
+<?php require "../include/nav.php"; ?>
 <?php
 // Tampilkan isi dari $_POST
 var_dump($_POST);
@@ -128,4 +128,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!-- End of Main Content -->
 
-<?php include "include/footer.php"; ?>
+<?php include "../include/footer.php"; ?>

@@ -1,5 +1,5 @@
-<?php require "include/head.php"; ?>
-<?php require "include/nav.php"; ?>
+<?php require "../include/head.php"; ?>
+<?php require "../include/nav.php"; ?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -94,7 +94,7 @@
         </a>
       </div>
     </div>
-    <?php 
+    <?php
     $value_per_page = 0;
     ?>
     <div class="card-body">
@@ -116,7 +116,16 @@
             </div>
             <div class="col-sm-12 col-md-6">
               <div id="dataTable_filter" class="dataTables_filter">
-                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" /></label>
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Cari Course..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                      <button class="btn btn-danger" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -196,7 +205,7 @@
                             </td>";
                       echo "</tr>";
                       $number++;
-                    } 
+                    }
                   } else {
                     echo "<tr><td colspan='8'>Tidak ada data yang tersedia</td></tr>";
                   }
@@ -219,63 +228,6 @@
               }
             }
           </script>
-
-          <!-- php pagenation -->
-
-          <?php
-          // Menentukan jumlah entri per halaman
-          $entries_per_page = $value_per_page;
-
-          // Menghitung jumlah total entri
-          $total_entries_query = "SELECT COUNT(*) AS total_entries FROM vidio";
-          $total_entries_result = $connect->query($total_entries_query);
-          $total_entries_row = $total_entries_result->fetch_assoc();
-          $total_entries = $total_entries_row['total_entries'];
-
-          // Menghitung jumlah halaman
-          $total_pages = ceil($total_entries / $entries_per_page);
-
-          // Mendapatkan nomor halaman yang diminta
-          $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-
-          // Menampilkan data berdasarkan halaman yang diminta
-          $start = ($current_page - 1) * $entries_per_page;
-
-          // Tombol Previous
-          $prev_page = $current_page - 1;
-
-          // Tombol Next
-          $next_page = $current_page + 1;
-          ?>
-
-
-
-          <div class="row">
-            <div class="col-sm-12 col-md-5">
-              <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-                Showing <?php echo $start + 1; ?> to <?php echo min($start + $entries_per_page, $total_entries); ?> of <?php echo $total_entries; ?> entries
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-7">
-              <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                <ul class="pagination">
-                  <li class="paginate_button page-item <?php echo ($current_page == 1) ? 'disabled' : ''; ?>">
-                    <a href="index.php?page=<?php echo $prev_page; ?>" aria-controls="dataTable" tabindex="0" class="page-link">Previous</a>
-                  </li>
-                  <?php
-                  for ($page = 1; $page <= $total_pages; $page++) {
-                    echo '<li class="paginate_button page-item ' . ($current_page == $page ? 'active' : '') . '">';
-                    echo '<a href="index.php?page=' . $page . '" aria-controls="dataTable" tabindex="0" class="page-link">' . $page . '</a>';
-                    echo '</li>';
-                  }
-                  ?>
-                  <li class="paginate_button page-item <?php echo ($current_page == $total_pages) ? 'disabled' : ''; ?>">
-                    <a href="index.php?page=<?php echo $next_page; ?>" aria-controls="dataTable" tabindex="0" class="page-link">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -284,5 +236,5 @@
 <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
-
-<?php require "include/footer.php" ?>
+<?php include "../include/footer.php"; ?>
+<!-- Footer -->
