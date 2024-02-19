@@ -38,11 +38,16 @@
           $kategori_video = $row['kategori_video'];
           $judul_video = $row['judul_vidio'];
           $sinopsis_video = $row['sinopsis_vidio'];
-          $img_thumbnail = base64_encode($row['img_thumbnail']); // Encode gambar dalam base64
+          $img_thumbnail = base64_decode($row['img_thumbnail']);
+
           $_SESSION["vidio_id"] = $id_vidio;
 
           // Ubah data gambar dari BLOB ke format gambar
-          $img_src = "data:image/jpeg;base64," . $img_thumbnail; // Format sumber gambar untuk ditampilkan di HTML
+
+          // Ubah data gambar dari BLOB ke format gambar
+          $namaFile = 'thumbnail/thumbnail_' . $id_vidio . '.jpg'; // Nama file unik dengan ID video
+          file_put_contents($namaFile, $img_thumbnail);
+          echo $namaFile;
 
           // Tampilkan data di dalam loop
       ?>
@@ -50,7 +55,7 @@
             <div class="card shadow-md">
               <div class="row">
                 <div class="col-md-5">
-                  <img class="card-img" src="<?php echo $img_src; ?>" alt="Card image" />
+                  <img class="card-img" src="<?php echo $namaFile; ?>" alt="Card image" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">

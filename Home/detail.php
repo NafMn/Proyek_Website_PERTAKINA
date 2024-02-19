@@ -39,7 +39,7 @@ if (isset($id_vidio)) {
     <div class="card-vidio shadow-md">
       <div class="card-body mx-2">
         <!-- Embed video -->
-        <iframe class="vidio-course mb-4" width="530" height="315" src="https://www.youtube.com/embed/<?php echo $id_vidio; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe class="vidio-course mb-4" width="530" height="315" src="<?php echo $url_video; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <!-- Informasi video -->
         <!-- Contoh: -->
         <p class="category fw-bold"><?php echo $kategori_video; ?></p>
