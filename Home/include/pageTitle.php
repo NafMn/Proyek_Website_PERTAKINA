@@ -8,7 +8,7 @@
                     <a href="index.php"><i class="bi bi-house-door"></i> Beranda</a>
                 </li>
                 <li>
-                    <i class="bi bi-chevron-double-right pe-2"></i> Learning Path
+                    <a href="course.php"><i class="bi bi-chevron-double-right pe-2"></i> Learning Path </a>
                 </li>
             </ul>
         </div>

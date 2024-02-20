@@ -20,7 +20,7 @@
             <p>Bahasa Korea</p>
           </div>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" id="japaneseCheckbox" class="checkbox" />
+            <input type="checkbox" id="japaneseCheckbox" class="checkbox" checked />
             <p>Bahasa Jepang</p>
           </div>
         </div>
@@ -55,29 +55,26 @@
 
 
     <div class="col-lg ">
-      <?php
-      $sql_video = "SELECT * FROM vidio LIMIT 5"; // Hanya mengambil lima baris pertama
-      $result_video = $connect->query($sql_video);
-      if ($result_video->num_rows > 0) {
-        while ($row = $result_video->fetch_assoc()) {
-          $url_video = $row['url_vidio'];
-          $id_vidio = $row['id_vidio'];
-          $kategori_video = $row['kategori_video'];
-          $judul_video = $row['judul_vidio'];
-          $sinopsis_video = $row['sinopsis_vidio'];
-          $img_thumbnail = base64_decode($row['img_thumbnail']);
+    <?php
+            // Lakukan query untuk mengambil video dengan kategori Bahasa Inggris
+            $sql_video = "SELECT * FROM vidio WHERE kategori_video = 'Bahasa Jepang' LIMIT 5";
+            $result_video = $connect->query($sql_video);
+            if ($result_video->num_rows > 0) {
+                // Looping melalui hasil query video
+                while ($row = $result_video->fetch_assoc()) {
+                    // Ambil data video
+                    $url_video = $row['url_vidio'];
+                    $id_vidio = $row['id_vidio'];
+                    $kategori_video = $row['kategori_video'];
+                    $judul_video = $row['judul_vidio'];
+                    $sinopsis_video = $row['sinopsis_vidio'];
+                    $img_thumbnail = base64_decode($row['img_thumbnail']);
 
-          $_SESSION["vidio_id"] = $id_vidio;
+                    // Tampilkan data video
+                    // ...
 
-          // Ubah data gambar dari BLOB ke format gambar
-
-          // Ubah data gambar dari BLOB ke format gambar
-          $namaFile = 'thumbnail/thumbnail_' . $id_vidio . '.jpg'; // Nama file unik dengan ID video
-          file_put_contents($namaFile, $img_thumbnail);
-          echo $namaFile;
-
-          // Tampilkan data di dalam loop
-      ?>
+                    // Tambahkan logic untuk menampilkan video sesuai kebutuhan
+            ?>
           <div class="col-6">
             <div class="card shadow-md">
               <div class="row">
