@@ -1,5 +1,5 @@
 <?php
-    $tujuanabangkuh="Home";
+    $tujuanabangkuh="home";
 
     header("Location: ./$tujuanabangkuh/");
 
