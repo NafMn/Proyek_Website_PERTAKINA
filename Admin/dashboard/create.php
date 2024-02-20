@@ -19,8 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sinopsis_video = $_POST['sinopsis_video'];
         $deskripsi_video = $_POST['deskripsi_video'];
 
-        
-
         // Mengatur direktori untuk menyimpan gambar
         $target_dir = "../home/uploads/";
         $target_file = $target_dir . basename($_FILES["img_thumbnail"]["name"]);
@@ -124,11 +122,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="col-12 p-0 m-0">
         <div class="mb-3">
           <label for="sinopsis_video" class="form-label">SINOPSIS VIDEO</label>
-          <textarea class="form-control" id="sinopsis_video" name="sinopsis_video"><?php echo isset($sinopsis_video) ? $sinopsis_video : ''; ?></textarea>
+          <textarea class="form-control" id="sinopsis_video" maxlength="100" name="sinopsis_video"><?php echo isset($sinopsis_video) ? $sinopsis_video : ''; ?></textarea>
         </div>
         <div class="mb-3">
           <label for="deskripsi_video" class="form-label">DESKRIPSI VIDEO</label>
-          <textarea class="form-control" id="deskripsi_video" name="deskripsi_video"><?php echo isset($deskripsi_video) ? $deskripsi_video : ''; ?></textarea>
+          <textarea class="form-control" id="deskripsi_video"  maxlength="100" name="deskripsi_video"><?php echo isset($deskripsi_video) ? $deskripsi_video : ''; ?></textarea>
         </div>
       </div>
       <div class="row">

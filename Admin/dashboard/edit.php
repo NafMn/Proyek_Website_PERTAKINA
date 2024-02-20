@@ -1,28 +1,29 @@
 <?php require "../include/head.php"; ?>
 <?php require "../include/nav.php"; ?>
 <?php
+
 // Tampilkan isi dari $_POST
 var_dump($_POST);
 ?>
 <!-- Begin Page Content -->
 <?php
 // Ambil ID video yang dipilih dari parameter URL
-if(isset($_GET['id'])) {
-    $id_video = $_GET['id']; 
-    // Lakukan query untuk mendapatkan data video berdasarkan ID
-    $sql = "SELECT * FROM vidio WHERE id_vidio = $id_video";
-    $result = $connect->query($sql);
-    if($result->num_rows > 0) {
-        // Ambil data video
-        $row = $result->fetch_assoc();
-        $url_video = $row['url_vidio'];
-        $judul_video = $row['judul_vidio'];
-        $kategori_video = $row['kategori_video'];
-        $durasi_video = $row['durasi_vidio'];
-        $sinopsis_video = $row['sinopsis_vidio'];
-        $deskripsi_video = $row['deskripsi_vidio'];
-    }
-    $kategori_options = array('Bahasa Inggris', 'Bahasa Jepang', 'Bahasa Korea');
+if (isset($_GET['id'])) {
+  $id_video = $_GET['id'];
+  // Lakukan query untuk mendapatkan data video berdasarkan ID
+  $sql = "SELECT * FROM vidio WHERE id_vidio = $id_video";
+  $result = $connect->query($sql);
+  if ($result->num_rows > 0) {
+    // Ambil data video
+    $row = $result->fetch_assoc();
+    $url_video = $row['url_vidio'];
+    $judul_video = $row['judul_vidio'];
+    $kategori_video = $row['kategori_video'];
+    $durasi_video = $row['durasi_vidio'];
+    $sinopsis_video = $row['sinopsis_vidio'];
+    $deskripsi_video = $row['deskripsi_vidio'];
+  }
+  $kategori_options = array('Bahasa Inggris', 'Bahasa Jepang', 'Bahasa Korea');
 }
 
 // Proses update data ketika formulir disubmit
@@ -36,41 +37,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $durasi_video = $_POST['durasi_video'];
     $sinopsis_video = $_POST['sinopsis_video'];
     $deskripsi_video = $_POST['deskripsi_video'];
-    $img_thumbnail = $_POST['img_thumbnail'];
 
+    // Mengatur direktori untuk menyimpan gambar
+    $target_dir = "../home/uploads/";
+    $target_file = $target_dir . basename($_FILES["img_thumbnail"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // jek salah yo boss
-    // struktrur e database sek kleru
-    // Pertama, jalankan pernyataan ALTER TABLE untuk mengubah tipe data kolom
-    // Lakukan query untuk memperbarui data di database
-    $sql = "UPDATE vidio 
-            SET vidio.url_vidio='$url_video', 
-                vidio.judul_vidio='$judul_video', 
-                vidio.kategori_video='$kategori_video', 
-                vidio.durasi_vidio='$durasi_video', 
-                vidio.sinopsis_vidio='$sinopsis_video', 
-                vidio.deskripsi_vidio='$deskripsi_video',
-                vidio.img_thumbnail='$img_thumbnail' 
-            WHERE vidio.id_vidio=$id_video";
+    // Check apakah file gambar nyata gambar
+    $check = getimagesize($_FILES["img_thumbnail"]["tmp_name"]);
+    if ($check !== false) {
+      echo "File is an image - " . $check["mime"] . ".";
+      $uploadOk = 1;
+    } else {
+      echo "File is not an image.";
+      $uploadOk = 0;
+    }
 
-      if ($connect->query($sql) === TRUE) {
-        echo "<script>alert('Data berhasil diperbarui.');</script>";
+    // Check jika file sudah ada
+    if (file_exists($target_file)) {
+      echo "Sorry, file already exists.";
+      $uploadOk = 0;
+    }
+
+    // Check ukuran file
+    if ($_FILES["img_thumbnail"]["size"] > 500000) {
+      echo "Sorry, your file is too large.";
+      $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+      echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+      $uploadOk = 0;
+    }
+
+    if ($uploadOk == 0) {
+      echo "Sorry, your file was not uploaded.";
+      // Jika semua sudah benar, coba upload file
+    } else {
+      if (move_uploaded_file($_FILES["img_thumbnail"]["tmp_name"], $target_file)) {
+        // Mengganti nama file thumbnail
+        $thumbnail_name = "thumbnail_" . $judul_video . "." . $imageFileType;
+        $target_thumbnail = $target_dir . $thumbnail_name;
+
+        if (rename($target_file, $target_thumbnail)) {
+          echo "The file " . htmlspecialchars($thumbnail_name) . " has been uploaded.";
+
+          // Buat pernyataan SQL untuk video\
+          $sql = "UPDATE vidio SET url_vidio='$url_video', judul_vidio='$judul_video', kategori_video='$kategori_video', durasi_vidio='$durasi_video', sinopsis_vidio='$sinopsis_video', deskripsi_vidio='$deskripsi_video', img_thumbnail='$thumbnail_name' WHERE id_vidio=$id_video";
+
+          // Eksekusi pernyataan SQL untuk video
+          if ($connect->query($sql) === TRUE) {
+            echo "<script>alert('Data berhasil terupdate.'); window.location.href='index.php';</script>";
+          } else {
+            echo "<script>alert('Terjadi kesalahan: " . $connect->error . "');</script>";
+          }
+        } else {
+          echo "Sorry, there was an error renaming your file.";
+        }
       } else {
-        echo "<script>alert('Terjadi kesalahan: ');</script>" . $connect->error;
+        echo "Sorry, there was an error uploading your file.";
       }
-      } else {
-        echo "<script>alert('Semua Kolom harus diisi: ');</script>" . $connect->error;
+    }
+  } else {
+    echo "<script>alert('Semua Kolom harus diisi: ');</script>" . $connect->error;
   }
 }
+
 ?>
 <div class="container-fluid pb-4">
   <div class="card shadow">
     <div class="card-header">
       <h3 class="text-center py-2">FORM EDIT DATA</h3>
     </div>
-    <form class="px-5 pt-4 pb-5" method="POST" action="">
+    <form class="px-5 pt-4 pb-5" method="POST" action="" enctype="multipart/form-data">
       <div class="row">
-      <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6">
           <label for="url_video" class="form-label">URL VIDEO</label>
           <input type="text" class="form-control" id="url_video" name="url_video" value="<?php echo isset($url_video) ? $url_video : ''; ?>" aria-describedby="emailHelp" />
         </div>
@@ -81,16 +124,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="row">
         <div class="col-12 col-md-6">
-        <label for="kategori_video">Pilih Kategori Video:</label>
-        <select class="form-control selectpicker" name="kategori_video" id="kategori_video">
-        <?php
-          // Loop melalui opsi dan tandai yang dipilih sesuai dengan nilai yang diambil dari database
-          foreach ($kategori_options as $option) {
+          <label for="kategori_video">Pilih Kategori Video:</label>
+          <select class="form-control selectpicker" name="kategori_video" id="kategori_video">
+            <?php
+            // Loop melalui opsi dan tandai yang dipilih sesuai dengan nilai yang diambil dari database
+            foreach ($kategori_options as $option) {
               $selected = ($option == $kategori_video) ? 'selected' : '';
               echo "<option value=\"$option\" $selected>$option</option>";
-          }
-          ?>
-        </select>
+            }
+            ?>
+          </select>
         </div>
         <div class="col-12 col-md-6">
           <label for="durasi_video" class="form-label">DURASI VIDEO</label>
@@ -110,9 +153,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
 
       <div class="row">
-      <label class="form-label" for="customFile">Uplout gambar gan</label>
-      <input type="file" class="form-control" id="img_thumbnail" name="img_thumbnail" />
-      </div> 
+        <label class="form-label" for="customFile">Uplout gambar gan</label>
+        <input type="file" class="form-control" id="img_thumbnail" name="img_thumbnail" />
+      </div>
 
       <button type="submit" class="btn btn-danger">
         <i class="fas fa-plus-circle px-1 text-center"></i> Simpan

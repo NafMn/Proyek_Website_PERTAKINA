@@ -38,7 +38,6 @@
           $kategori_video = $row['kategori_video'];
           $judul_video = $row['judul_vidio'];
           $sinopsis_video = $row['sinopsis_vidio'];
-          $_SESSION["vidio_id"] = $id_vidio;
 
           $sql = "SELECT img_thumbnail FROM vidio WHERE id_vidio = $id_vidio"; // Ganti '$id_video' dengan ID video yang sesuai
           $result = $connect->query($sql);
