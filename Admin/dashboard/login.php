@@ -80,7 +80,7 @@ include "../config/database/database.php";
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,100;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./assets//css/sb-admin-2.css" />
+  <link rel="stylesheet" href="../assets//css/sb-admin-2.css" />
   <link rel="icon" href="../assets/img/logo.svg" />
 </head>
 
@@ -93,7 +93,9 @@ include "../config/database/database.php";
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image: url(https://static.wikia.nocookie.net/bocchi-the-rock/images/8/88/Kikuri_Hiroi.png);
+                background-repeat: no-repeat; background-size: cover;">
+              </div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -130,7 +132,15 @@ include "../config/database/database.php";
       </div>
     </div>
   </div>
+
+  <div class="d-flex justify-content-evenly">
+    <img src="https://static.wikia.nocookie.net/bocchi-the-rock/images/9/98/Hitori_Gotoh_Character_Design_2.png" alt="">
+    <img src="https://static.wikia.nocookie.net/bocchi-the-rock/images/9/92/Nijika_Ijichi_Character_Design_2.png" alt="">
+    <img src="https://static.wikia.nocookie.net/bocchi-the-rock/images/4/4a/Ryo_Yamada_Character_Design_2.png" alt="">
+    <img src="https://static.wikia.nocookie.net/bocchi-the-rock/images/a/a8/Ikuyo_Kita_Character_Design_2.png" alt="">
+  </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </html>

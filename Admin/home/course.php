@@ -12,47 +12,20 @@
           <input class="form-control" type="text" placeholder="Search" aria-label="Search" />
           <h5 class="card-title">Pilihan Bahasa:</h5>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" id="englishCheckbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" checked="checked" />
             <p>Bahasa Inggris</p>
           </div>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" id="koreanCheckbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
             <p>Bahasa Korea</p>
           </div>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" id="japaneseCheckbox" class="checkbox" />
+            <input type="checkbox" class="checkbox" />
             <p>Bahasa Jepang</p>
           </div>
         </div>
       </div>
     </div>
-
-    <script>
-      // Mendapatkan referensi checkbox
-      const englishCheckbox = document.getElementById('englishCheckbox');
-      const koreanCheckbox = document.getElementById('koreanCheckbox');
-      const japaneseCheckbox = document.getElementById('japaneseCheckbox');
-
-      // Menambahkan event listener untuk setiap checkbox
-      englishCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          window.location.href = 'inggris.php'; // Ganti dengan URL halaman bahasa Inggris
-        }
-      });
-
-      koreanCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          window.location.href = 'korea.php'; // Ganti dengan URL halaman bahasa Korea
-        }
-      });
-
-      japaneseCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          window.location.href = 'jepang.php'; // Ganti dengan URL halaman bahasa Jepang
-        }
-      });
-    </script>
-
 
     <div class="col-lg ">
       <?php
@@ -65,16 +38,11 @@
           $kategori_video = $row['kategori_video'];
           $judul_video = $row['judul_vidio'];
           $sinopsis_video = $row['sinopsis_vidio'];
-          $img_thumbnail = base64_decode($row['img_thumbnail']);
-
+          $img_thumbnail = base64_encode($row['img_thumbnail']); // Encode gambar dalam base64
           $_SESSION["vidio_id"] = $id_vidio;
 
           // Ubah data gambar dari BLOB ke format gambar
-
-          // Ubah data gambar dari BLOB ke format gambar
-          $namaFile = 'thumbnail/thumbnail_' . $id_vidio . '.jpg'; // Nama file unik dengan ID video
-          file_put_contents($namaFile, $img_thumbnail);
-          echo $namaFile;
+          $img_src = "data:image/jpeg;base64," . $img_thumbnail; // Format sumber gambar untuk ditampilkan di HTML
 
           // Tampilkan data di dalam loop
       ?>
@@ -82,7 +50,7 @@
             <div class="card shadow-md">
               <div class="row">
                 <div class="col-md-5">
-                  <img class="card-img" src="<?php echo $namaFile; ?>" alt="Card image" />
+                  <img class="card-img" src="<?php echo $img_src; ?>" alt="Card image" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">
