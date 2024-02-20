@@ -6,7 +6,7 @@
 <!-- Main Container-->
 <?php
 // Start session
-session_start();
+// session_start();
 $id_vidio = $_GET['id'];
 // Cek apakah ID video sudah ada di session
 if (isset($id_vidio)) {

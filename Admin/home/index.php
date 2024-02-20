@@ -117,7 +117,7 @@
               Pembelajaran bahasa Inggris adalah proses di mana individu memperoleh keterampilan dalam berkomunikasi, membaca, menulis, dan memahami bahasa Inggris.
               </p>
               <button class="btn btn-primary">
-                <a href="course.php" class="text-white">Lihat Selengkapnya</a>
+                <a href="inggris.php" class="text-white">Lihat Selengkapnya</a>
               </button>
             </div>
           </div>
@@ -129,7 +129,7 @@
               Pembelajaran bahasa Jepang adalah proses di mana individu memperoleh keterampilan dalam berkomunikasi, membaca, menulis, dan memahami bahasa Jepang.
               </p>
               <button class="btn btn-primary">
-                <a href="course.php" class="text-white">Lihat Selengkapnya</a>
+                <a href="jepang.php" class="text-white">Lihat Selengkapnya</a>
               </button>
             </div>
           </div>
@@ -140,7 +140,7 @@
               <p class="mb-3 fs-6">
               Pembelajaran bahasa Jepang adalah proses di mana individu memperoleh keterampilan dalam berkomunikasi, membaca, menulis, dan memahami bahasa Jepang.
               <button class="btn btn-primary">
-                <a href="course.php" class="text-white">Lihat Selengkapnya</a>
+                <a href="korea.php" class="text-white">Lihat Selengkapnya</a>
               </button>
             </div>
           </div>

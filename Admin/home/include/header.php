@@ -55,7 +55,9 @@
       <div class="container-xl">
         <div class="row">
           <div class="col-lg-3">
+            <a href="../index.php">
             <img class="py-3" src="assets/images/Pertakina-footer.png" alt="" />
+            </a>
             <a data-bs-toggle="collapse" data-bs-target="#menu" class="float-end d-lg-none pt-3 ps-3"><i class="bi fs-1 cp bi-list"></i>
             </a>
           </div>

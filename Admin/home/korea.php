@@ -12,45 +12,74 @@
           <input class="form-control" type="text" placeholder="Search" aria-label="Search" />
           <h5 class="card-title">Pilihan Bahasa:</h5>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" class="checkbox" checked="checked" />
+            <input type="checkbox" id="englishCheckbox" class="checkbox" />
             <p>Bahasa Inggris</p>
           </div>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" id="koreanCheckbox" class="checkbox" checked/>
             <p>Bahasa Korea</p>
           </div>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" class="checkbox" />
+            <input type="checkbox" id="japaneseCheckbox" class="checkbox" />
             <p>Bahasa Jepang</p>
           </div>
         </div>
       </div>
     </div>
 
+    <script>
+      // Mendapatkan referensi checkbox
+      const englishCheckbox = document.getElementById('englishCheckbox');
+      const koreanCheckbox = document.getElementById('koreanCheckbox');
+      const japaneseCheckbox = document.getElementById('japaneseCheckbox');
+
+      // Menambahkan event listener untuk setiap checkbox
+      englishCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          window.location.href = 'inggris.php'; // Ganti dengan URL halaman bahasa Inggris
+        }
+      });
+
+      koreanCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          window.location.href = 'korea.php'; // Ganti dengan URL halaman bahasa Korea
+        }
+      });
+
+      japaneseCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          window.location.href = 'jepang.php'; // Ganti dengan URL halaman bahasa Jepang
+        }
+      });
+    </script>
+
+
     <div class="col-lg ">
-      <?php
-      $sql_video = "SELECT * FROM vidio LIMIT 5"; // Hanya mengambil lima baris pertama
-      $result_video = $connect->query($sql_video);
-      if ($result_video->num_rows > 0) {
-        while ($row = $result_video->fetch_assoc()) {
-          $url_video = $row['url_vidio'];
-          $id_vidio = $row['id_vidio'];
-          $kategori_video = $row['kategori_video'];
-          $judul_video = $row['judul_vidio'];
-          $sinopsis_video = $row['sinopsis_vidio'];
-          $img_thumbnail = base64_encode($row['img_thumbnail']); // Encode gambar dalam base64
-          $_SESSION["vidio_id"] = $id_vidio;
+    <?php
+            // Lakukan query untuk mengambil video dengan kategori Bahasa Inggris
+            $sql_video = "SELECT * FROM vidio WHERE kategori_video = 'Bahasa Korea' LIMIT 5";
+            $result_video = $connect->query($sql_video);
+            if ($result_video->num_rows > 0) {
+                // Looping melalui hasil query video
+                while ($row = $result_video->fetch_assoc()) {
+                    // Ambil data video
+                    $url_video = $row['url_vidio'];
+                    $id_vidio = $row['id_vidio'];
+                    $kategori_video = $row['kategori_video'];
+                    $judul_video = $row['judul_vidio'];
+                    $sinopsis_video = $row['sinopsis_vidio'];
+                    $img_thumbnail = base64_decode($row['img_thumbnail']);
 
-          // Ubah data gambar dari BLOB ke format gambar
-          $img_src = "data:image/jpeg;base64," . $img_thumbnail; // Format sumber gambar untuk ditampilkan di HTML
+                    // Tampilkan data video
+                    // ...
 
-          // Tampilkan data di dalam loop
-      ?>
+                    // Tambahkan logic untuk menampilkan video sesuai kebutuhan
+            ?>
           <div class="col-6">
             <div class="card shadow-md">
               <div class="row">
                 <div class="col-md-5">
-                  <img class="card-img" src="<?php echo $img_src; ?>" alt="Card image" />
+                  <img class="card-img" src="<?php echo $namaFile; ?>" alt="Card image" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">
