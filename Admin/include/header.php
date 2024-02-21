@@ -86,5 +86,5 @@
       </div>
     </div>
   </header>
-  <?php include "../config/database/database.php"; ?>
+  <?php include "./config/database/database.php"; ?>
 

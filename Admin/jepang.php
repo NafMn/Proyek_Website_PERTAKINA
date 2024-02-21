@@ -12,7 +12,7 @@
           <input class="form-control" type="text" placeholder="Search" aria-label="Search" />
           <h5 class="card-title">Pilihan Bahasa:</h5>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" id="englishCheckbox" class="checkbox" checked/>
+            <input type="checkbox" id="englishCheckbox" class="checkbox" />
             <p>Bahasa Inggris</p>
           </div>
           <div class="mx-3 d-flex gap-2">
@@ -20,7 +20,7 @@
             <p>Bahasa Korea</p>
           </div>
           <div class="mx-3 d-flex gap-2">
-            <input type="checkbox" id="japaneseCheckbox" class="checkbox" />
+            <input type="checkbox" id="japaneseCheckbox" class="checkbox" checked />
             <p>Bahasa Jepang</p>
           </div>
         </div>
@@ -55,31 +55,37 @@
 
 
     <div class="col-lg ">
-    <?php
-            // Lakukan query untuk mengambil video dengan kategori Bahasa Inggris
-            $sql_video = "SELECT * FROM vidio WHERE kategori_video = 'Bahasa Inggris' LIMIT 5";
-            $result_video = $connect->query($sql_video);
-            if ($result_video->num_rows > 0) {
-                // Looping melalui hasil query video
-                while ($row = $result_video->fetch_assoc()) {
-                    // Ambil data video
-                    $url_video = $row['url_vidio'];
-                    $id_vidio = $row['id_vidio'];
-                    $kategori_video = $row['kategori_video'];
-                    $judul_video = $row['judul_vidio'];
-                    $sinopsis_video = $row['sinopsis_vidio'];
-                    $img_thumbnail = base64_decode($row['img_thumbnail']);
+      <?php
+      // Lakukan query untuk mengambil video dengan kategori Bahasa Inggris
+      $sql_video = "SELECT * FROM vidio WHERE kategori_video = 'Bahasa Jepang' LIMIT 5";
+      $result_video = $connect->query($sql_video);
+      if ($result_video->num_rows > 0) {
+        // Looping melalui hasil query video
+        while ($row = $result_video->fetch_assoc()) {
+          // Ambil data video
+          $url_video = $row['url_vidio'];
+          $id_vidio = $row['id_vidio'];
+          $kategori_video = $row['kategori_video'];
+          $judul_video = $row['judul_vidio'];
+          $sinopsis_video = $row['sinopsis_vidio'];
 
-                    // Tampilkan data video
-                    // ...
+          $sql = "SELECT img_thumbnail FROM vidio WHERE id_vidio = '$id_vidio'";
+          $result = $connect->query($sql);
 
-                    // Tambahkan logic untuk menampilkan video sesuai kebutuhan
-            ?>
+          if ($result->num_rows > 0) {
+            // Output data dari setiap baris
+            while ($row = $result->fetch_assoc()) {
+              $thumbnail_path = "./uploads/" . $row["img_thumbnail"];
+            }
+          } else {
+            echo "Tidak ada gambar yang ditemukan.";
+          }
+      ?>
           <div class="col-6">
             <div class="card shadow-md">
               <div class="row">
                 <div class="col-md-5">
-                  <img class="card-img" src="<?php echo $namaFile; ?>" alt="Card image" />
+                  <img class="card-img" src="<?php echo $thumbnail_path ; ?>" alt="Card image" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">

@@ -1,5 +1,5 @@
-<?php require "../include/head.php"; ?>
-<?php require "../include/nav.php"; ?>
+<?php require "./include/head-admin.php"; ?>
+<?php require "./include/nav-admin.php"; ?>
 
 <!-- Begin Page Content -->
 <?php
@@ -149,4 +149,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- End of Main Content -->
 
 <!-- Logout Modal-->
-<?php include '../include/footer.php'?>
+<?php include './include/footer-admin.php'?>

@@ -1,5 +1,5 @@
-<?php require "../include/head.php"; ?>
-<?php require "../include/nav.php"; ?>
+<?php require "./include/head-admin.php"; ?>
+<?php require "./include/nav-admin.php"; ?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -100,6 +100,6 @@
     </div>
   </div>
 
-  <?php include "../include/footer.php"?>
+  <?php include "./include/footer-admin.php"?>
 </div>
 

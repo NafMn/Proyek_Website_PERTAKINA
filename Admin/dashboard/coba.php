@@ -1,5 +1,5 @@
 <?php
-include '../include/nav.php';
+include './include/nav-admin.php';
 
 
 // Ambil nama file thumbnail dari database

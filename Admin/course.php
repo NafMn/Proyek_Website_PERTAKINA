@@ -53,33 +53,39 @@
       });
     </script>
 
-
     <div class="col-lg ">
-    <?php
-            // Lakukan query untuk mengambil video dengan kategori Bahasa Inggris
-            $sql_video = "SELECT * FROM vidio WHERE kategori_video = 'Bahasa Jepang' LIMIT 5";
-            $result_video = $connect->query($sql_video);
-            if ($result_video->num_rows > 0) {
-                // Looping melalui hasil query video
-                while ($row = $result_video->fetch_assoc()) {
-                    // Ambil data video
-                    $url_video = $row['url_vidio'];
-                    $id_vidio = $row['id_vidio'];
-                    $kategori_video = $row['kategori_video'];
-                    $judul_video = $row['judul_vidio'];
-                    $sinopsis_video = $row['sinopsis_vidio'];
-                    $img_thumbnail = base64_decode($row['img_thumbnail']);
+      <?php
+      $sql_video = "SELECT * FROM vidio LIMIT 5"; // Hanya mengambil lima baris pertama
+      $result_video = $connect->query($sql_video);
+      if ($result_video->num_rows > 0) {
+        while ($row = $result_video->fetch_assoc()) {
+          $url_video = $row['url_vidio'];
+          $id_vidio = $row['id_vidio'];
+          $kategori_video = $row['kategori_video'];
+          $judul_video = $row['judul_vidio'];
+          $sinopsis_video = $row['sinopsis_vidio'];
+          $_SESSION["vidio_id"] = $id_vidio;
 
-                    // Tampilkan data video
-                    // ...
+          $sql = "SELECT img_thumbnail FROM vidio WHERE id_vidio = '$id_vidio'";
+          $result = $connect->query($sql);
 
-                    // Tambahkan logic untuk menampilkan video sesuai kebutuhan
-            ?>
+          if ($result->num_rows > 0) {
+              // Output data dari setiap baris
+              while ($row = $result->fetch_assoc()) {
+                  $thumbnail_path = "./uploads/" . $row["img_thumbnail"];
+              }
+          } else {
+              echo "Tidak ada gambar yang ditemukan.";
+          }
+          
+        
+          // Tampilkan data di dalam loop
+      ?>
           <div class="col-6">
             <div class="card shadow-md">
               <div class="row">
                 <div class="col-md-5">
-                  <img class="card-img" src="<?php echo $namaFile; ?>" alt="Card image" />
+                  <img class="card-img" src="<?php echo $thumbnail_path; ?>" alt="Card image" />
                 </div>
                 <div class="col-md-7">
                   <div class="card-body">

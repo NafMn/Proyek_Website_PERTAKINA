@@ -1,5 +1,5 @@
-<?php require "../include/head.php"; ?>
-<?php require "../include/nav.php"; ?>
+<?php require "./include/head-admin.php"; ?>
+<?php require "./include/nav-admin.php"; ?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -175,7 +175,7 @@
                   $result = $connect->query($sql);
                   // Periksa apakah ada hasil yang ditemukan
                   $number = 1;
-                  if ( $result && $result->num_rows > 0) {
+                  if ($result && $result->num_rows > 0) {
                     // Output data dari setiap baris
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
@@ -232,5 +232,5 @@
 <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
-<?php include "../include/footer.php"; ?>
+<?php include "./include/footer-admin.php"; ?>
 <!-- Footer -->
